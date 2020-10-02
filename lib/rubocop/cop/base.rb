@@ -303,7 +303,7 @@ module RuboCop
 
       # @return [Symbol, Corrector] offense status
       def correct(range)
-        status = correction_strategy
+        @status = correction_strategy
 
         if block_given?
           corrector = Corrector.new(self)
@@ -313,9 +313,9 @@ module RuboCop
           end
         end
 
-        status = attempt_correction(range, corrector) if status == :attempt_correction
+        @status = attempt_correction(range, corrector) if @status == :attempt_correction
 
-        [status, corrector]
+        [@status, corrector]
       end
 
       # @return [Symbol] offense status
